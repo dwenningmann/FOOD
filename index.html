@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍽️ Wochenplan Sa 7.6. – Fr 13.6.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8621A;
+    --orange-light: #FDF0E8;
+    --orange-mid: #F5A96A;
+    --green: #2D7A4F;
+    --green-light: #EAF5EE;
+    --green-mid: #6DC98A;
+    --yellow: #F5C842;
+    --yellow-light: #FFFBEA;
+    --blue: #1A6EAF;
+    --blue-light: #E8F3FC;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --ink: #1A1208;
+    --ink-mid: #5C4A35;
+    --ink-light: #A08060;
+    --surface: #FFFDF8;
+    --card: #FFFFFF;
+    --border: #EDE5D8;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, #E8621A33 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, #F5C84222 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-mid);
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--yellow); }
+  .hero-sub {
+    color: #B0A090;
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #E0D8CC;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 1rem;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 1rem 1.25rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-light);
+    border: none; background: none; cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--orange); }
+  .nav-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+  /* SECTIONS */
+  .section { display: none; padding: 1.5rem; max-width: 800px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* WEEK OVERVIEW */
+  .week-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  /* MEAL CARD */
+  .meal-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .meal-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .meal-header {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0;
+    cursor: pointer;
+  }
+  .meal-day-col {
+    background: var(--orange);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    color: #fff;
+    min-height: 80px;
+  }
+  .meal-day-col.vegetarisch { background: var(--green); }
+  .meal-day-col.vegan { background: var(--green); }
+  .meal-day-col.fisch { background: var(--blue); }
+  .meal-day-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+  .meal-day-num {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .meal-body {
+    padding: 0.875rem 1rem;
+    flex: 1;
+  }
+  .meal-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 6px;
+  }
+  .meal-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .leftovers-badge {
+    flex-shrink: 0;
+    background: var(--yellow-light);
+    color: #8B6914;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 100px;
+    border: 1px solid #F5C84260;
+    white-space: nowrap;
+  }
+  .meal-desc {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .meal-meta {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+    border: 1px solid transparent;
+  }
+  .tag-quick { background: var(--yellow-light); color: #8B6914; border-color: #F5C84260; }
+  .tag-vegan { background: var(--green-light); color: var(--green); border-color: #6DC98A60; }
+  .tag-veggie { background: var(--green-light); color: var(--green); border-color: #6DC98A60; }
+  .tag-protein { background: var(--orange-light); color: var(--orange); border-color: #E8621A30; }
+  .tag-fish { background: var(--blue-light); color: var(--blue); border-color: #1A6EAF30; }
+  .tag-meat { background: var(--red-light); color: var(--red); border-color: #C0392B30; }
+  .tag-legume { background: #F3EEFF; color: #6B3FA0; border-color: #6B3FA030; }
+  .tag-pasta { background: #FFF3E0; color: #B05A00; border-color: #B05A0030; }
+  .time-tag {
+    font-size: 11px;
+    color: var(--ink-light);
+    display: flex; align-items: center; gap: 3px;
+  }
+
+  /* MACROS */
+  .macros-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+  .macro {
+    padding: 8px 6px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .macro:last-child { border-right: none; }
+  .macro-val {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+  }
+  .macro-val.kcal { color: var(--orange); }
+  .macro-val.protein { color: var(--blue); }
+  .macro-val.carb { color: #B05A00; }
+  .macro-val.fat { color: #8B6914; }
+  .macro-label { font-size: 10px; color: var(--ink-light); font-weight: 600; }
+
+  /* RECIPE EXPAND */
+  .recipe-toggle {
+    width: 100%;
+    background: var(--surface);
+    border: none;
+    border-top: 1px solid var(--border);
+    padding: 10px 1rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    cursor: pointer;
+    text-align: left;
+    display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .recipe-toggle:hover { background: var(--orange-light); color: var(--orange); }
+  .recipe-toggle .arrow { margin-left: auto; transition: transform 0.25s; }
+  .recipe-toggle.open .arrow { transform: rotate(180deg); }
+  .recipe-content {
+    display: none;
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+    background: #FEFCF8;
+  }
+  .recipe-content.open { display: block; }
+  .recipe-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+    margin-top: 12px;
+  }
+  .recipe-section-title:first-child { margin-top: 0; }
+  .ingredient-list { list-style: none; }
+  .ingredient-list li {
+    display: flex; align-items: baseline; gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .ingredient-list li:last-child { border-bottom: none; }
+  .ingredient-list li::before {
+    content: '·';
+    color: var(--orange-mid);
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .ingredient-amount {
+    font-weight: 600;
+    color: var(--ink);
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+  .ingredient-name { color: var(--ink-mid); }
+  .steps-list { list-style: none; counter-reset: steps; }
+  .steps-list li {
+    counter-increment: steps;
+    display: flex; gap: 12px;
+    padding: 8px 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-mid);
+    border-bottom: 1px dashed var(--border);
+  }
+  .steps-list li:last-child { border-bottom: none; }
+  .steps-list li::before {
+    content: counter(steps);
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+
+  /* SHOPPING */
+  .shop-category {
+    margin-bottom: 1.5rem;
+  }
+  .shop-cat-header {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .shop-cat-emoji { font-size: 20px; }
+  .shop-items { list-style: none; }
+  .shop-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+  }
+  .shop-item:last-child { border-bottom: none; }
+  .shop-item.checked { opacity: 0.4; }
+  .shop-cb {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    background: var(--card);
+  }
+  .shop-item.checked .shop-cb {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .shop-item-text { font-size: 14px; line-height: 1.3; }
+  .shop-item-text .amount { font-weight: 600; color: var(--ink); }
+  .shop-item-text .name { color: var(--ink-mid); }
+  .shop-hint {
+    background: var(--orange-light);
+    border: 1px solid var(--orange-mid);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .clear-btn {
+    margin-bottom: 1rem;
+    padding: 8px 16px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-light);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .clear-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* KIDS */
+  .kids-hero {
+    background: linear-gradient(135deg, #1A1208 0%, #3D2A10 100%);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .kids-hero::after {
+    content: '🍕🥗🍜🥘🍳';
+    position: absolute;
+    bottom: -5px; left: 0; right: 0;
+    font-size: 28px;
+    letter-spacing: 8px;
+    opacity: 0.15;
+  }
+  .kids-hero h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+  .kids-hero p { color: #B0A090; font-size: 13px; }
+  .kids-week {
+    display: grid; gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .kids-meal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .kids-meal-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface);
+    border-radius: 10px;
+  }
+  .kids-meal-day { font-size: 11px; font-weight: 700; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.05em; }
+  .kids-meal-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+  .kids-meal-note { font-size: 11px; color: var(--ink-light); margin-top: 2px; }
+  .kids-lunchbox-badge {
+    margin-left: auto;
+    flex-shrink: 0;
+    background: var(--yellow-light);
+    color: #8B6914;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 9px;
+    border-radius: 100px;
+  }
+  .kids-lunch-section {
+    background: var(--green-light);
+    border: 1px solid #6DC98A60;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .kids-lunch-section h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .kids-lunch-item {
+    display: flex; gap: 8px; align-items: flex-start;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px dashed #6DC98A60;
+    color: var(--ink-mid);
+  }
+  .kids-lunch-item:last-child { border-bottom: none; }
+  .kids-lunch-item .day { font-weight: 600; color: var(--green); min-width: 30px; }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  @media (max-width: 500px) {
+    .macros-row { grid-template-columns: repeat(2, 1fr); }
+    .macro:nth-child(2) { border-right: none; }
+    .macro:nth-child(3) { border-top: 1px solid var(--border); }
+    .macro:nth-child(4) { border-top: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Familienküche · 3 Personen</div>
+  <h1>Diese Woche<br>gibt's <em>was Feines</em></h1>
+  <p class="hero-sub">Sa 7.6. – Fr 13.6. · 7 Abendessen · 3× Reste</p>
+  <div class="hero-badges">
+    <span class="hero-badge">🥩 2× Fleisch/Fisch</span>
+    <span class="hero-badge">🌱 5× vegetarisch/vegan</span>
+    <span class="hero-badge">🔁 3× Lunchbox-ready</span>
+    <span class="hero-badge">⚡ max. 45 Min</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showTab('plan')">📅 Wochenplan</button>
+  <button class="nav-btn" onclick="showTab('shop')">🛒 Einkaufen</button>
+  <button class="nav-btn" onclick="showTab('kids')">🎒 Kids-View</button>
+</nav>
+
+<!-- ======== PLAN ======== -->
+<section id="tab-plan" class="section active">
+  <div class="week-grid">
+
+    <!-- SA -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col fisch">
+          <span class="meal-day-name">Sa</span>
+          <span class="meal-day-num">7</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🐟 Lachs-Kartoffel-Pfanne mit Spinat</span>
+          </div>
+          <p class="meal-desc">Lachs sofort verbrauchen · One-Pan · kein Aufwand</p>
+          <div class="meal-meta">
+            <span class="tag tag-fish">🐟 Fisch</span>
+            <span class="tag tag-protein">💪 Eiweißreich</span>
+            <span class="tag tag-quick">⚡ Quick</span>
+            <span class="time-tag">⏱ 30 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">600</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">42g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">35g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">28g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (3 Personen) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">750 g</span><span class="ingredient-name">Lachsfilet</span></li>
+          <li><span class="ingredient-amount">1,2 kg</span><span class="ingredient-name">festkochende Kartoffeln</span></li>
+          <li><span class="ingredient-amount">400 g</span><span class="ingredient-name">frischer Blattspinat</span></li>
+          <li><span class="ingredient-amount">3</span><span class="ingredient-name">Knoblauchzehen</span></li>
+          <li><span class="ingredient-amount">1</span><span class="ingredient-name">Zitrone</span></li>
+          <li><span class="ingredient-amount">4 EL</span><span class="ingredient-name">Olivenöl</span></li>
+          <li><span class="ingredient-amount">—</span><span class="ingredient-name">Salz, Pfeffer, Paprika edelsüß</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Kartoffeln schälen, in 2-cm-Würfel schneiden. 10–12 Min in Salzwasser kochen, abgießen.</li>
+          <li>Lachs in grobe Stücke schneiden, mit Salz, Pfeffer, Paprika würzen.</li>
+          <li>2 EL Öl in großer Pfanne, Kartoffeln 5 Min scharf anbraten bis sie Farbe kriegen.</li>
+          <li>Kartoffeln rausschieben, restliches Öl rein. Lachs 2–3 Min je Seite braten.</li>
+          <li>Knoblauch hacken, 1 Min mitrösten.</li>
+          <li>Spinat portionsweise rein, 2–3 Min zusammenfallen lassen.</li>
+          <li>Alles vorsichtig mischen, mit Zitronensaft abschmecken.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- SO -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col">
+          <span class="meal-day-name">So</span>
+          <span class="meal-day-num">8</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🥩 Hähnchen-Teriyaki-Bowl mit Reis & Brokkoli</span>
+            <span class="leftovers-badge">🔁 Reste Mo</span>
+          </div>
+          <p class="meal-desc">Große Portion – Reste als Lunchbox für Montag</p>
+          <div class="meal-meta">
+            <span class="tag tag-meat">🥩 Fleisch</span>
+            <span class="tag tag-protein">💪 Eiweißreich</span>
+            <span class="time-tag">⏱ 40 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">680</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">48g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">58g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">18g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (🔁 5 Portionen-Äquivalent) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">1,2 kg</span><span class="ingredient-name">Hähnchenbrust</span></li>
+          <li><span class="ingredient-amount">800 g</span><span class="ingredient-name">Jasminreis (trocken)</span></li>
+          <li><span class="ingredient-amount">800 g</span><span class="ingredient-name">Brokkoli (frisch oder TK)</span></li>
+          <li><span class="ingredient-amount">6 EL</span><span class="ingredient-name">Sojasoße</span></li>
+          <li><span class="ingredient-amount">4 EL</span><span class="ingredient-name">Honig</span></li>
+          <li><span class="ingredient-amount">2 EL</span><span class="ingredient-name">heller Essig</span></li>
+          <li><span class="ingredient-amount">3</span><span class="ingredient-name">Knoblauchzehen</span></li>
+          <li><span class="ingredient-amount">25 g</span><span class="ingredient-name">frischer Ingwer</span></li>
+          <li><span class="ingredient-amount">3 EL</span><span class="ingredient-name">Öl</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Reis nach Packung kochen.</li>
+          <li>Hähnchen in mundgerechte Stücke schneiden. Knoblauch und Ingwer fein reiben.</li>
+          <li>Teriyaki-Sauce: Sojasoße, Honig, Essig und 4 EL Wasser verrühren.</li>
+          <li>Öl im Wok erhitzen, Hähnchen portionsweise scharf anbraten (8–10 Min, durch).</li>
+          <li>Knoblauch und Ingwer 1 Min mitbraten, Sauce angießen. 3–4 Min einkochen lassen.</li>
+          <li>Brokkoli 5 Min in Salzwasser blanchieren.</li>
+          <li>In Schüsseln anrichten. Reste abkühlen und in Boxen → Kühlschrank für Montag.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- MO -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col vegan">
+          <span class="meal-day-name">Mo</span>
+          <span class="meal-day-num">9</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🫘 Rote Linsensuppe türkisch Art</span>
+            <span class="leftovers-badge">🔁 Reste Di/Mi</span>
+          </div>
+          <p class="meal-desc">Hält 4 Tage – Alexandra nimmt Di & Mi als Lunch mit</p>
+          <div class="meal-meta">
+            <span class="tag tag-vegan">🌱 Vegan</span>
+            <span class="tag tag-legume">🫘 Hülsenfrüchte</span>
+            <span class="tag tag-protein">💪 Eiweißreich</span>
+            <span class="time-tag">⏱ 35 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">520</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">30g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">75g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">9g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (🔁 8–10 Portionen-Äquivalent) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">700 g</span><span class="ingredient-name">rote Linsen (trocken)</span></li>
+          <li><span class="ingredient-amount">3 große</span><span class="ingredient-name">Zwiebeln</span></li>
+          <li><span class="ingredient-amount">6</span><span class="ingredient-name">Knoblauchzehen</span></li>
+          <li><span class="ingredient-amount">3 EL</span><span class="ingredient-name">Tomatenmark</span></li>
+          <li><span class="ingredient-amount">2 Dosen</span><span class="ingredient-name">gehackte Tomaten (à 400g)</span></li>
+          <li><span class="ingredient-amount">2,5 L</span><span class="ingredient-name">Gemüsebrühe</span></li>
+          <li><span class="ingredient-amount">2 TL</span><span class="ingredient-name">Kreuzkümmel</span></li>
+          <li><span class="ingredient-amount">2 TL</span><span class="ingredient-name">Paprikapulver edelsüß</span></li>
+          <li><span class="ingredient-amount">1 TL</span><span class="ingredient-name">Kurkuma</span></li>
+          <li><span class="ingredient-amount">2</span><span class="ingredient-name">Zitronen (Saft)</span></li>
+          <li><span class="ingredient-amount">4 EL</span><span class="ingredient-name">Olivenöl</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Zwiebeln würfeln. Öl erhitzen, Zwiebeln 6–7 Min goldbraun anbraten.</li>
+          <li>Knoblauch hacken, mit Kreuzkümmel, Paprika, Kurkuma 2 Min mitrösten.</li>
+          <li>Tomatenmark einrühren, kurz anrösten.</li>
+          <li>Linsen (abgespült), Dosentomaten und Brühe dazugeben, aufkochen.</li>
+          <li>20–25 Min köcheln bis Linsen zerfallen.</li>
+          <li>Mit Zitronensaft, Salz, Pfeffer abschmecken. Ggf. teilweise pürieren.</li>
+          <li>Reste abfüllen → Kühlschrank (hält 4 Tage).</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- DI -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col vegetarisch">
+          <span class="meal-day-name">Di</span>
+          <span class="meal-day-num">10</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🍝 Spaghetti Cacio e Pepe</span>
+          </div>
+          <p class="meal-desc">Römischer Klassiker mit 4 Zutaten. Frisch essen, nicht aufwärmen.</p>
+          <div class="meal-meta">
+            <span class="tag tag-veggie">🥚 Vegetarisch</span>
+            <span class="tag tag-pasta">🍝 Pasta</span>
+            <span class="tag tag-protein">💪 Eiweißreich</span>
+            <span class="tag tag-quick">⚡ Quick</span>
+            <span class="time-tag">⏱ 20 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">780</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">35g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">105g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">26g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (3 Personen) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">900 g</span><span class="ingredient-name">Spaghetti</span></li>
+          <li><span class="ingredient-amount">6</span><span class="ingredient-name">Eigelb</span></li>
+          <li><span class="ingredient-amount">150 g</span><span class="ingredient-name">Pecorino Romano, fein gerieben</span></li>
+          <li><span class="ingredient-amount">150 g</span><span class="ingredient-name">Parmesan, fein gerieben</span></li>
+          <li><span class="ingredient-amount">2 TL</span><span class="ingredient-name">schwarzer Pfeffer, grob gemahlen</span></li>
+          <li><span class="ingredient-amount">—</span><span class="ingredient-name">Salz fürs Nudelwasser</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Großen Topf Salzwasser aufkochen. Spaghetti al dente kochen, 400 ml Nudelwasser abschöpfen.</li>
+          <li>Pfeffer in trockener Pfanne 1 Min rösten bis er duftet.</li>
+          <li>Eigelbe mit geriebenem Käse und 4 EL Nudelwasser zu Creme verrühren.</li>
+          <li>Pasta abgießen, in die Pfanne zum Pfeffer geben. Pfanne vom Herd!</li>
+          <li>Käse-Ei-Creme über die Pasta, mit Zangen durchmischen.</li>
+          <li>Schluckweise Nudelwasser zugeben und rühren – seidig-cremig bis keine Klumpen mehr. Sofort servieren.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- MI -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col vegetarisch">
+          <span class="meal-day-name">Mi</span>
+          <span class="meal-day-num">11</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🥚 Shakshuka mit Feta & Fladenbrot</span>
+          </div>
+          <p class="meal-desc">Gart sich selbst in der Pfanne. Alles aus Dose/Kühlschrank.</p>
+          <div class="meal-meta">
+            <span class="tag tag-veggie">🥚 Vegetarisch</span>
+            <span class="tag tag-quick">⚡ Quick</span>
+            <span class="time-tag">⏱ 25 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">560</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">28g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">52g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">24g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (3 Personen) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">9</span><span class="ingredient-name">Eier</span></li>
+          <li><span class="ingredient-amount">3 Dosen</span><span class="ingredient-name">gehackte Tomaten (à 400g)</span></li>
+          <li><span class="ingredient-amount">2</span><span class="ingredient-name">Paprikaschoten (rot/gelb)</span></li>
+          <li><span class="ingredient-amount">2</span><span class="ingredient-name">Zwiebeln</span></li>
+          <li><span class="ingredient-amount">4</span><span class="ingredient-name">Knoblauchzehen</span></li>
+          <li><span class="ingredient-amount">200 g</span><span class="ingredient-name">Feta</span></li>
+          <li><span class="ingredient-amount">2 TL</span><span class="ingredient-name">Paprikapulver edelsüß</span></li>
+          <li><span class="ingredient-amount">1 TL</span><span class="ingredient-name">Kreuzkümmel</span></li>
+          <li><span class="ingredient-amount">3</span><span class="ingredient-name">Fladenbrote</span></li>
+          <li><span class="ingredient-amount">3 EL</span><span class="ingredient-name">Olivenöl</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Zwiebeln und Paprika würfeln, Knoblauch hacken.</li>
+          <li>Öl in tiefer Pfanne, Zwiebeln 5 Min anbraten, Paprika 3 Min mitgeben.</li>
+          <li>Knoblauch, Paprikapulver und Kreuzkümmel 1 Min rösten.</li>
+          <li>Dosentomaten angießen, 10 Min einköcheln bis Sauce dickt.</li>
+          <li>Feta in Stücken verteilen.</li>
+          <li>9 Mulden in die Sauce drücken, Eier hineingleiten lassen.</li>
+          <li>Deckel drauf, 6–8 Min bei mittlerer Hitze. Fladenbrot erwärmen – direkt aus der Pfanne servieren.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- DO -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col vegan">
+          <span class="meal-day-name">Do</span>
+          <span class="meal-day-num">12</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🫘 Kichererbsen-Kokos-Curry mit Basmatireis</span>
+            <span class="leftovers-badge">🔁 Reste Fr</span>
+          </div>
+          <p class="meal-desc">Mild, cremig, sättigend. Reste für Freitag-Lunch Alexandra.</p>
+          <div class="meal-meta">
+            <span class="tag tag-vegan">🌱 Vegan</span>
+            <span class="tag tag-legume">🫘 Hülsenfrüchte</span>
+            <span class="tag tag-protein">💪 Eiweißreich</span>
+            <span class="time-tag">⏱ 35 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">620</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">22g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">88g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">20g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (🔁 8 Portionen-Äquivalent) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">3 Dosen</span><span class="ingredient-name">Kichererbsen (à 400g)</span></li>
+          <li><span class="ingredient-amount">800 g</span><span class="ingredient-name">TK-Spinat, aufgetaut</span></li>
+          <li><span class="ingredient-amount">2 Dosen</span><span class="ingredient-name">Kokosmilch (à 400ml)</span></li>
+          <li><span class="ingredient-amount">1 Dose</span><span class="ingredient-name">gehackte Tomaten (400g)</span></li>
+          <li><span class="ingredient-amount">700 g</span><span class="ingredient-name">Basmatireis (trocken)</span></li>
+          <li><span class="ingredient-amount">3</span><span class="ingredient-name">Zwiebeln</span></li>
+          <li><span class="ingredient-amount">6</span><span class="ingredient-name">Knoblauchzehen</span></li>
+          <li><span class="ingredient-amount">30 g</span><span class="ingredient-name">frischer Ingwer</span></li>
+          <li><span class="ingredient-amount">3 TL</span><span class="ingredient-name">Currypulver mild</span></li>
+          <li><span class="ingredient-amount">2 TL</span><span class="ingredient-name">Garam Masala</span></li>
+          <li><span class="ingredient-amount">1 TL</span><span class="ingredient-name">Kurkuma</span></li>
+          <li><span class="ingredient-amount">3 EL</span><span class="ingredient-name">Öl</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Reis kochen.</li>
+          <li>Zwiebeln würfeln, Knoblauch und Ingwer fein hacken.</li>
+          <li>Öl erhitzen, Zwiebeln 6–7 Min goldbraun braten.</li>
+          <li>Knoblauch, Ingwer und alle Gewürze 2 Min rösten.</li>
+          <li>Dosentomaten und Kokosmilch angießen, aufkochen.</li>
+          <li>Kichererbsen und aufgetauten Spinat einrühren.</li>
+          <li>15 Min köcheln, salzen. Reste abkühlen → Kühlschrank.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- FR -->
+    <div class="meal-card">
+      <div class="meal-header" onclick="toggleRecipe(this)">
+        <div class="meal-day-col vegan">
+          <span class="meal-day-name">Fr</span>
+          <span class="meal-day-num">13</span>
+        </div>
+        <div class="meal-body">
+          <div class="meal-title-row">
+            <span class="meal-name">🍝 Pasta e Fagioli</span>
+          </div>
+          <p class="meal-desc">Cremiger Eintopf-Klassiker – Pasta gart direkt in der Suppe. Ein Topf, ein Freitag.</p>
+          <div class="meal-meta">
+            <span class="tag tag-vegan">🌱 Vegan</span>
+            <span class="tag tag-legume">🫘 Hülsenfrüchte</span>
+            <span class="tag tag-pasta">🍝 Pasta</span>
+            <span class="time-tag">⏱ 30 Min</span>
+          </div>
+        </div>
+      </div>
+      <div class="macros-row">
+        <div class="macro"><span class="macro-val kcal">680</span><span class="macro-label">kcal</span></div>
+        <div class="macro"><span class="macro-val protein">28g</span><span class="macro-label">Protein</span></div>
+        <div class="macro"><span class="macro-val carb">105g</span><span class="macro-label">Kohlenhydrate</span></div>
+        <div class="macro"><span class="macro-val fat">14g</span><span class="macro-label">Fett</span></div>
+      </div>
+      <button class="recipe-toggle" onclick="toggleRecipe(this)">
+        🧑‍🍳 Rezept anzeigen (3 Personen) <span class="arrow">▾</span>
+      </button>
+      <div class="recipe-content">
+        <div class="recipe-section-title">Zutaten</div>
+        <ul class="ingredient-list">
+          <li><span class="ingredient-amount">700 g</span><span class="ingredient-name">kurze Pasta (Penne/Ditalini)</span></li>
+          <li><span class="ingredient-amount">2 Dosen</span><span class="ingredient-name">weiße Bohnen (à 400g)</span></li>
+          <li><span class="ingredient-amount">1 Dose</span><span class="ingredient-name">gehackte Tomaten (400g)</span></li>
+          <li><span class="ingredient-amount">3</span><span class="ingredient-name">Knoblauchzehen</span></li>
+          <li><span class="ingredient-amount">2</span><span class="ingredient-name">Rosmarinzweige</span></li>
+          <li><span class="ingredient-amount">1 L</span><span class="ingredient-name">Gemüsebrühe</span></li>
+          <li><span class="ingredient-amount">4 EL</span><span class="ingredient-name">Olivenöl</span></li>
+          <li><span class="ingredient-amount">50 g</span><span class="ingredient-name">Parmesan zum Reiben</span></li>
+        </ul>
+        <div class="recipe-section-title">Zubereitung</div>
+        <ol class="steps-list">
+          <li>Knoblauch hacken. Öl erhitzen, Knoblauch und Rosmarin 1–2 Min anbraten.</li>
+          <li>Dosentomaten und Brühe angießen, aufkochen.</li>
+          <li>Erste Dose Bohnen direkt rein. Zweite Dose: Hälfte zerdrücken/pürieren – macht Sauce cremig. Beides in den Topf.</li>
+          <li>Pasta trocken dazugeben – gart direkt im Eintopf.</li>
+          <li>10–12 Min köcheln, regelmäßig rühren. Bei Bedarf Brühe nachgießen.</li>
+          <li>Abschmecken, Olivenöl drüber, Parmesan reiben. Frisch servieren.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======== EINKAUFEN ======== -->
+<section id="tab-shop" class="section">
+  <div class="shop-hint">
+    ⚠️ <strong>Haltbarkeit:</strong> Lachs + Hähnchen am Samstag kaufen. Lachs sofort am Sa, Hähnchen bis So. Frischer Spinat auch für Sa. Brokkoli hält bis So/Mo.
+  </div>
+  <button class="clear-btn" onclick="clearAll()">✓ Alle abhaken zurücksetzen</button>
+
+  <div class="shop-category">
+    <div class="shop-cat-header"><span class="shop-cat-emoji">🥦</span> Gemüse & Obst</div>
+    <ul class="shop-items" id="list-gemuese">
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1,2 kg </span><span class="name">festkochende Kartoffeln</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">400 g </span><span class="name">frischer Blattspinat (für Samstag)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">800 g </span><span class="name">Brokkoli (frisch oder TK)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">2 </span><span class="name">Paprikaschoten (rot oder gelb)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">8 </span><span class="name">Zwiebeln</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">2–3 </span><span class="name">Knoblauchknollen</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">ca. 60 g </span><span class="name">frischer Ingwer</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">3 </span><span class="name">Zitronen</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">2 </span><span class="name">Rosmarinzweige (oder Trockenpulver)</span></div></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <div class="shop-cat-header"><span class="shop-cat-emoji">🥩</span> Fleisch, Fisch & Eier</div>
+    <ul class="shop-items">
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">750 g </span><span class="name">Lachsfilet (für Sa – sofort verbrauchen)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1,2 kg </span><span class="name">Hähnchenbrust (für So – bis So im Kühlschrank)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">18 </span><span class="name">Eier</span></div></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <div class="shop-cat-header"><span class="shop-cat-emoji">🧀</span> Milchprodukte</div>
+    <ul class="shop-items">
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">150 g </span><span class="name">Pecorino Romano, fein gerieben</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">250 g </span><span class="name">Parmesan</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">200 g </span><span class="name">Feta</span></div></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <div class="shop-cat-header"><span class="shop-cat-emoji">🥫</span> Konserven & Trockenwaren</div>
+    <ul class="shop-items">
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">7 Dosen </span><span class="name">gehackte Tomaten (à 400g)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">2 Dosen </span><span class="name">Kokosmilch (à 400ml)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">3 Dosen </span><span class="name">Kichererbsen (à 400g)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">2 Dosen </span><span class="name">weiße Bohnen (à 400g)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1 Tube </span><span class="name">Tomatenmark (70–100g)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">700 g </span><span class="name">rote Linsen</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1,5 kg </span><span class="name">Jasmin- oder Basmatireis</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1 kg </span><span class="name">Spaghetti</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">750 g </span><span class="name">kurze Pasta (Penne oder Ditalini)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">800 g </span><span class="name">TK-Spinat</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1 Flasche </span><span class="name">Sojasoße</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">Brühwürfel/Pulver </span><span class="name">für ca. 3,5 L Gemüsebrühe</span></div></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <div class="shop-cat-header"><span class="shop-cat-emoji">🍞</span> Brot & Sonstiges</div>
+    <ul class="shop-items">
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">3 </span><span class="name">Fladenbrote (für Mi)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">1 Glas </span><span class="name">Honig</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="amount">—</span><span class="name">heller Essig (Reisessig o. Weißweinessig)</span></div></li>
+    </ul>
+  </div>
+
+  <div class="shop-category">
+    <div class="shop-cat-header"><span class="shop-cat-emoji">📦</span> Vorratsprüfung</div>
+    <ul class="shop-items">
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="name">Olivenöl, Raps-/Sonnenblumenöl</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="name">Salz, schwarzer Pfeffer (ganz + gemahlen)</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="name">Paprikapulver edelsüß, Kreuzkümmel</span></div></li>
+      <li class="shop-item" onclick="toggle(this)"><div class="shop-cb">✓</div><div class="shop-item-text"><span class="name">Kurkuma, Garam Masala, Currypulver mild</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======== KIDS ======== -->
+<section id="tab-kids" class="section">
+  <div class="kids-hero">
+    <h2>Hey, was gibt's diese Woche? 🙋</h2>
+    <p>Sa 7.6. – Fr 13.6. · Kurz & knapp für euch</p>
+  </div>
+
+  <div class="kids-week">
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🐟</div>
+      <div>
+        <div class="kids-meal-day">Samstag</div>
+        <div class="kids-meal-name">Lachs-Kartoffel-Pfanne</div>
+        <div class="kids-meal-note">Mit Spinat · 30 Min</div>
+      </div>
+    </div>
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🍗</div>
+      <div>
+        <div class="kids-meal-day">Sonntag</div>
+        <div class="kids-meal-name">Hähnchen-Teriyaki-Bowl</div>
+        <div class="kids-meal-note">Mit Reis & Brokkoli · ein bisschen asiatisch</div>
+      </div>
+      <span class="kids-lunchbox-badge">🔁 Lunchbox Mo</span>
+    </div>
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🍲</div>
+      <div>
+        <div class="kids-meal-day">Montag</div>
+        <div class="kids-meal-name">Rote Linsensuppe</div>
+        <div class="kids-meal-note">Türkisch, mild, sehr sättigend</div>
+      </div>
+      <span class="kids-lunchbox-badge">🔁 Lunchbox Di/Mi</span>
+    </div>
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🍝</div>
+      <div>
+        <div class="kids-meal-day">Dienstag</div>
+        <div class="kids-meal-name">Spaghetti Cacio e Pepe</div>
+        <div class="kids-meal-note">Nur Pasta, Ei, Käse, Pfeffer – mega cremig</div>
+      </div>
+    </div>
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🥚</div>
+      <div>
+        <div class="kids-meal-day">Mittwoch</div>
+        <div class="kids-meal-name">Shakshuka mit Fladenbrot</div>
+        <div class="kids-meal-note">Eier in Tomatensoße mit Feta · direkt aus der Pfanne</div>
+      </div>
+    </div>
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🫘</div>
+      <div>
+        <div class="kids-meal-day">Donnerstag</div>
+        <div class="kids-meal-name">Kichererbsen-Kokos-Curry</div>
+        <div class="kids-meal-note">Mild, mit Reis · nicht scharf versprochen</div>
+      </div>
+      <span class="kids-lunchbox-badge">🔁 Lunchbox Fr</span>
+    </div>
+    <div class="kids-meal">
+      <div class="kids-meal-emoji">🍝</div>
+      <div>
+        <div class="kids-meal-day">Freitag</div>
+        <div class="kids-meal-name">Pasta e Fagioli</div>
+        <div class="kids-meal-note">Cremige Pasta-Bohnen-Suppe · one pot</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kids-lunch-section">
+    <h3>🎒 Alexandra – Lunchbox-Plan</h3>
+    <div class="kids-lunch-item"><span class="day">Mo</span> Reste Hähnchen-Teriyaki-Bowl (vom Sonntag)</div>
+    <div class="kids-lunch-item"><span class="day">Di</span> Rote Linsensuppe (heiß in Thermosflasche oder kalt)</div>
+    <div class="kids-lunch-item"><span class="day">Mi</span> Rote Linsensuppe (hält bis Mittwoch locker)</div>
+    <div class="kids-lunch-item"><span class="day">Fr</span> Kichererbsen-Curry mit Reis (vom Donnerstag)</div>
+  </div>
+</section>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleRecipe(el) {
+    const card = el.closest('.meal-card');
+    const btn = card.querySelector('.recipe-toggle');
+    const content = card.querySelector('.recipe-content');
+    if (!btn || !content) return;
+    btn.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggle(item) {
+    item.classList.toggle('checked');
+  }
+
+  function clearAll() {
+    document.querySelectorAll('.shop-item').forEach(i => i.classList.remove('checked'));
+  }
+</script>
+</body>
+</html>
